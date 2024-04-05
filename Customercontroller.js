@@ -55,7 +55,6 @@ const customerLogin = (req, res) => {
       res.json({ status: 400, message: "Failed to login" });
     });
 };
-
 const forgotPassword = (req, res) => {
   customer
     .findOne({ email: req.body.email })

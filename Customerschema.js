@@ -3,7 +3,6 @@ var CustomerSchema = mongoose.Schema({
   firstname: String,
   lastname: String,
   password: String,
-  // confirmpassword: String,
   email: String,
   gender: String,
 });
