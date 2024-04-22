@@ -10,4 +10,5 @@ router.post("/customerlogin", Customercontroller.customerLogin);
 router.post("/forgotPassword", Customercontroller.forgotPassword);
 router.post('/staffregistration',Staffcontroller.staffregistration);
 router.post('/stafflogin',Staffcontroller.stafflogin);
+router.post('/staffforgotpassword',Staffcontroller.StaffforgotPassword)
 
