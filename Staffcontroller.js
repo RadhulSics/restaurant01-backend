@@ -64,7 +64,7 @@ const stafflogin = (req, res) => {
 };
 
 const StaffforgotPassword = (req, res) => {
-  customer
+  Staffmodel
     .findOne({ email: req.body.email })
     .exec()
     .then((data) => {
