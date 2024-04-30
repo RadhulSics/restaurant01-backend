@@ -86,5 +86,4 @@ const forgotPassword = (req, res) => {
       });
     });
 };
-
 module.exports = { addCustomer, viewCustomer, customerLogin, forgotPassword };
