@@ -1,107 +1,140 @@
-const menu=require("./Foodschema")
+const menu = require("./Foodschema");
 const multer = require("multer");
+
 const storage = multer.diskStorage({
-    destination: function (req, res, cb) {
-      cb(null, "./upload");
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
-  
-  const upload = multer({ storage: storage }).single("image");
-const addmenu=(req,res)=>{
-    const newmenu=new menu({
-       foodname: req.body.foodname,
-        image: req.file.filename,
-        price: req.body.price,
-        category: req.body.category,
-        amount: req.body.amount
-    })
-    newmenu.save()
-    .then(data=>{
-      console.log("ok")
-      res.json({status:200,
-          message:" menu added successfully ",
+  destination: function (req, file, cb) {
+    cb(null, "./upload");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage }).single("image");
+
+const addmenu = (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        status: 500,
+        message: "File upload failed",
+        error: err,
+      });
+    }
+
+    const newmenu = new menu({
+      foodname: req.body.foodname,
+      image: req.file ? req.file.filename : "", // Handle case where req.file might be undefined
+      price: req.body.price,
+      category: req.body.category,
+      amount: req.body.amount,
+    });
+
+    newmenu
+      .save()
+      .then((data) => {
+        console.log("ok");
+        res.json({
+          status: 200,
+          message: "Menu added successfully",
           result: data,
+        });
       })
-    })
-    .catch(error=>{
-        console.log(error)
-        res.json({status:500,
-        message:"database error",
-        error: err,})
-    
-    })
-}
-const viewmenu= (req, res) => {
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({
+          status: 500,
+          message: "Database error",
+          error: error,
+        });
+      });
+  });
+};
+
+const viewmenu = (req, res) => {
   menu
     .find()
     .exec()
     .then((data) => {
       res.json({
         status: 200,
-        msg: "Viewed Successfully",
+        message: "Viewed Successfully",
         result: data,
       });
     })
     .catch((err) => {
-      res.json({
+      res.status(500).json({
         status: 500,
-        msg: "Not Viewed",
+        message: "Not Viewed",
         error: err,
       });
     });
 };
-const viewone = (req,res) => {
+
+const viewone = (req, res) => {
   menu
     .findById({ _id: req.params.id })
     .exec()
     .then((data) => {
       res.json({
         status: 200,
-        msg: "success",
+        message: "Success",
         data: data,
       });
     })
     .catch((err) => {
-      res.json({
+      res.status(500).json({
         status: 500,
-        msg: "error",
-        data: err,
+        message: "Error",
+        error: err,
       });
     });
-}
+};
 
-const editfood= (req,res) => {
-  menu.findByIdAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    {
+const editfood = (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        status: 500,
+        message: "File upload failed",
+        error: err,
+      });
+    }
+
+    const updateData = {
       foodname: req.body.foodname,
-      image: req.file,
       price: req.body.price,
       category: req.body.category,
       amount: req.body.amount,
+    };
+
+    // Add image to update data if available
+    if (req.file) {
+      updateData.image = req.file.filename;
     }
-  )
-  .exec()
-  .then((data) => {
-    res.json({
-      status: 200,
-      msg: "Data Updated",
-      result: data,
-    });
-  })
-  .catch((err) => {
-    res.json({
-      status: 500,
-      msg: "Server error",
-      error: err,
-    });
+
+    menu
+      .findByIdAndUpdate({ _id: req.params.id }, updateData, { new: true })
+      .exec()
+      .then((data) => {
+        res.json({
+          status: 200,
+          message: "Success",
+          data: data,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({
+          status: 500,
+          message: "Error",
+          error: err,
+        });
+      });
   });
-}
+};
 
 const deletefood = (req, res) => {
   menu
@@ -110,18 +143,17 @@ const deletefood = (req, res) => {
     .then((data) => {
       res.json({
         status: 200,
-        msg: "Data Deleted",
+        message: "Data Deleted",
         result: data,
       });
     })
     .catch((err) => {
-      res.json({
+      res.status(500).json({
         status: 500,
-        msg: "Server error",
+        message: "Server error",
         error: err,
       });
     });
 };
 
-
-module.exports={addmenu,upload,viewmenu,viewone,editfood,deletefood}
+module.exports = { addmenu, viewmenu, viewone, editfood, deletefood };
