@@ -88,16 +88,17 @@ const editfood= (req,res) => {
   )
   .exec()
   .then((data) => {
-    res.status(200).json({
+    res.json({
       status: 200,
-      data: data,
+      msg: "Data Updated",
+      result: data,
     });
   })
   .catch((err) => {
-    console.log(err);
-    res.status(500).json({
+    res.json({
       status: 500,
-      data: err,
+      msg: "Server error",
+      error: err,
     });
   });
 }
