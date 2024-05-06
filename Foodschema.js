@@ -20,6 +20,5 @@ amount:{
     type:Number,
 }
 });
-const addmenu=mongoose.model('addmenu',Addmenuschema);
+const addmenu=mongoose.model('addmenus',Addmenuschema);
 module.exports=addmenu
-// module.exports=mongoose.model("addmenu",Addmenuschema)
