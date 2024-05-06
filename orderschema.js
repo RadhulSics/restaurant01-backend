@@ -1,30 +1,36 @@
-const mongoose = require("mongoose")
-const orderschema = mongoose.Schema({
-    foodid:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:"newfoods",
-    },
-    userid:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:"newusers",
-    },
-    paymentstatus:{
-        type:Boolean,
-        required:false,
-    },
-    amount:{
-        type:Number,
-        required:true,
-    },
-    count:{
-        type:Number,
-        required:true,
-    },
-    date:{
-        type:Date,
-    }
-})
+const mongoose = require("mongoose");
 
-module.exports=mongoose.model("neworders",orderschema)
+const OrderSchema = new mongoose.Schema({
+  foodid: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "addmenus"
+  },
+  userid: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "customers"
+  },
+  paymentstatus: {
+    type: Boolean,
+    default: false
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  count: {
+    type: Number,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  deliveryAddress: {
+    type: String,
+    required: true
+  }
+});
+
+module.exports = mongoose.model("neworders", OrderSchema);

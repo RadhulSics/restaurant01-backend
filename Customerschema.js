@@ -6,5 +6,5 @@ var CustomerSchema = mongoose.Schema({
   email: String,
   gender: String,
 });
-const customer = mongoose.model("Customers", CustomerSchema);
+const customer = mongoose.model("customers", CustomerSchema);
 module.exports = customer;
