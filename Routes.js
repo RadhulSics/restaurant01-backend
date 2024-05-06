@@ -3,7 +3,8 @@ const router = express.Router();
 const Customercontroller = require("./Customercontroller");
 const Staffcontroller = require("./Staffcontroller");
 const Foodcontroller = require("./Foodcontroller");
-const Ordercontroller = require("./Ordercontroller");
+const ordercontrol = require("./ordercontrol");
+const cartcontrol=require("./Cartcontroller")
 module.exports = router;
 
 router.post("/addSchema", Customercontroller.addCustomer);
@@ -18,4 +19,7 @@ router.post("/placeorder",Foodcontroller.placeorder                             
 router.post("/viewone", Foodcontroller.viewone);
 router.post("/editfooddetails/:id", Foodcontroller.editfood);
 router.post("/deletefood", Foodcontroller.deletefood);
-router.post("/addOrder", Ordercontroller.addOrder);
+router.post("/addcart/:foodid", cartcontrol.addcart);
+router.get("/viewcart/:userid", cartcontrol.viewcart);
+router.post("/deletecartitem/:id", cartcontrol.deletecartitem);
+router.post("/cartitems/:userid", cartcontrol.deletecart);
