@@ -26,7 +26,3 @@ router.get("/viewOrderDetails/:userid", OrderController.viewOrderDetails);
 router.get("/viewCustomerOrders", OrderController.viewCustomerOrders);
 
 module.exports = router;
-
-
-
-module.exports = router;
