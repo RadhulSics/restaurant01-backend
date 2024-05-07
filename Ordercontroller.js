@@ -1,136 +1,112 @@
-const ordermodel = require("./Orderschema");
+const OrderModel = require("./Orderschema");
 
 const addOrder = async (req, res) => {
   try {
-    let flag = 0;
-    for (const x of req.body.state) { // Assuming req.body.state is an array
-      const date = new Date();
-      const newOrder = new ordermodel({
-        foodid: x.foodid._id,
-        userid: x.userid,
-        paymentstatus: false,
-        amount: x.foodid.price,
-        count: x.count,
-        date: date,
-      });
-      await newOrder.save();
-      flag = 1;
-    }
+    const orders = req.body || [];
+    console.log(orders);
+    const newOrder = new OrderModel(orders);
+    const savedOrder = await newOrder.save();
     res.json({
       status: 200,
-      message: "Added Successfully",
+      message: "Order added successfully",
+      result: savedOrder,
     });
   } catch (err) {
-    console.log("Error on saving order", err);
+    console.error("Error on saving order", err);
     res.status(500).json({
       status: 500,
       message: "Failed to add order",
-      error: err,
+      error: err.message,
     });
   }
 };
 
 
-
 const viewOrder = async (req, res) => {
   try {
-    const data = await ordermodel
-      .find({ userid: req.params.userid, paymentstatus: false })
-      .exec();
+    const userId = req.params.userid;
+    const orders = await OrderModel.find({ userId, paymentstatus: false });
     res.json({
       status: 200,
-      message: "Viewed Successfully",
-      result: data,
+      message: "Orders viewed successfully",
+      result: orders,
     });
   } catch (err) {
     res.status(500).json({
       status: 500,
       message: "Failed to view orders",
-      error: err,
+      error: err.message,
     });
   }
 };
 
 const cancelOrder = async (req, res) => {
   try {
-    for (const x of req.body.items) {
-      await ordermodel
-        .findOneAndDelete({ _id: x._id, paymentstatus: false })
-        .exec();
-    }
+    const orderIds = req.body.orderIds || [];
+    const deletedOrders = await OrderModel.deleteMany({ _id: { $in: orderIds }, paymentstatus: false });
     res.json({
       status: 200,
-      message: "Payment Cancelled",
+      message: "Orders cancelled successfully",
+      result: deletedOrders,
     });
   } catch (err) {
     res.status(500).json({
       status: 500,
-      message: "Failed to cancel order",
-      error: err,
+      message: "Failed to cancel orders",
+      error: err.message,
     });
   }
 };
 
 const updatePaymentStatus = async (req, res) => {
   try {
-    for (const x of req.body.items) {
-      await ordermodel
-        .findOneAndUpdate(
-          { _id: x._id, userid: x.userid, paymentstatus: false },
-          { paymentstatus: true }
-        )
-        .exec();
-    }
+    const orderIds = req.body.orderIds || [];
+    const updatedOrders = await OrderModel.updateMany({ _id: { $in: orderIds }, paymentstatus: false }, { paymentstatus: true });
     res.json({
       status: 200,
-      message: "Payment Success",
+      message: "Payment status updated successfully",
+      result: updatedOrders,
     });
   } catch (err) {
     res.status(500).json({
       status: 500,
       message: "Failed to update payment status",
-      error: err,
+      error: err.message,
     });
   }
 };
 
 const viewOrderDetails = async (req, res) => {
   try {
-    const data = await ordermodel
-      .find({ userid: req.params.userid, paymentstatus: true })
-      .populate("foodid")
-      .exec();
+    const userId = req.params.userid;
+    const orders = await OrderModel.find({ userId, paymentstatus: true }).populate("foodid");
     res.json({
       status: 200,
-      message: "Viewed Successfully",
-      result: data,
+      message: "Order details viewed successfully",
+      result: orders,
     });
   } catch (err) {
     res.status(500).json({
       status: 500,
       message: "Failed to view order details",
-      error: err,
+      error: err.message,
     });
   }
 };
 
 const viewCustomerOrders = async (req, res) => {
   try {
-    const data = await ordermodel
-      .find({ paymentstatus: true })
-      .populate("userid")
-      .populate("foodid")
-      .exec();
+    const orders = await OrderModel.find({ paymentstatus: true }).populate("userid").populate("foodid");
     res.json({
       status: 200,
-      message: "Viewed Successfully",
-      result: data,
+      message: "Customer orders viewed successfully",
+      result: orders,
     });
   } catch (err) {
     res.status(500).json({
       status: 500,
       message: "Failed to view customer orders",
-      error: err,
+      error: err.message,
     });
   }
 };

@@ -3,9 +3,8 @@ const router = express.Router();
 const Customercontroller = require("./Customercontroller");
 const Staffcontroller = require("./Staffcontroller");
 const Foodcontroller = require("./Foodcontroller");
-const Ordercontroller = require("./Ordercontroller");
+const OrderController = require("./Ordercontroller");
 
-module.exports = router;
 
 router.post("/addSchema", Customercontroller.addCustomer);
 router.post("/Viewcustomers", Customercontroller.viewCustomer);
@@ -15,12 +14,14 @@ router.post("/staffregistration", Staffcontroller.staffregistration);
 router.post("/stafflogin", Staffcontroller.stafflogin);
 router.post("/addmenu", Foodcontroller.addmenu);
 router.post("/viewmenu", Foodcontroller.viewmenu);
-router.post("/viewone", Foodcontroller.viewone);
+router.post("/viewone/:id", Foodcontroller.viewone);
 router.post("/editfooddetails/:id", Foodcontroller.editfood);
 router.post("/deletefood", Foodcontroller.deletefood);
-router.post("/addOrder", Ordercontroller.addOrder);
-router.post("/viewOrder", Ordercontroller.viewOrder);
-router.post("/cancelOrder", Ordercontroller.cancelOrder);
-router.post("/updatePaymentStatus", Ordercontroller.updatePaymentStatus);
-router.post("/viewOrderDetails", Ordercontroller.viewOrderDetails);
-router.post("/viewCustomerOrders", Ordercontroller.viewCustomerOrders);
+router.post("/addOrder", OrderController.addOrder);
+router.get("/viewOrder/:userid", OrderController.viewOrder);
+router.post("/cancelOrder", OrderController.cancelOrder);
+router.post("/updatePaymentStatus", OrderController.updatePaymentStatus);
+router.get("/viewOrderDetails/:userid", OrderController.viewOrderDetails);
+router.get("/viewCustomerOrders", OrderController.viewCustomerOrders);
+
+module.exports = router;

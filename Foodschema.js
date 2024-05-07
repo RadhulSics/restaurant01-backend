@@ -22,3 +22,4 @@ amount:{
 });
 const addmenu=mongoose.model('addmenus',Addmenuschema);
 module.exports=addmenu
+// module.exports=mongoose.model("addmenu",Addmenuschema)
