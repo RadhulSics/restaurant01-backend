@@ -3,8 +3,9 @@ const ordermodel = require("./Orderschema");
 const addOrder = async (req, res) => {
   try {
     let flag = 0;
-    for (const x of req.body.state) { // Assuming req.body.state is an array
-      const date = new Date();
+    for (const x of req.body.state) { 
+      const data = await ordermodel
+      // const date = new Date();
       const newOrder = new ordermodel({
         foodid: x.foodid._id,
         userid: x.userid,
@@ -13,7 +14,7 @@ const addOrder = async (req, res) => {
         count: x.count,
         date: date,
       });
-      await newOrder.save();
+       newOrder.save();
       flag = 1;
     }
     res.json({

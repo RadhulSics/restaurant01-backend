@@ -7,6 +7,7 @@ const staffregistration = (req, res) => {
     gender: req.body.gender,
     email: req.body.email,
     password: req.body.password,
+    confirmpassword:req.body.password,
     contactno: req.body.contactno,
    
   });
@@ -69,7 +70,7 @@ const StaffforgotPassword = (req, res) => {
     .exec()
     .then((data) => {
       if (data) {
-        customer
+        Staffmodel
           .updateOne({ email: req.body.email }, { password: req.body.password })
           .exec()
           .then((data) => {
@@ -94,5 +95,4 @@ const StaffforgotPassword = (req, res) => {
       });
     });
 };
-
 module.exports = { staffregistration, stafflogin,StaffforgotPassword };
