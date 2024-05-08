@@ -5,7 +5,7 @@ const app = express();
 app.use(express.static(`${__dirname}/upload`));
 const cors = require("cors");
 
-const dbconnection = require("./dbconnection");
+const dbconnection = require("./dbconnection")
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/", router);
