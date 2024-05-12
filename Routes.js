@@ -16,7 +16,7 @@ router.post("/addmenu", Foodcontroller.addmenu);
 router.post("/viewmenu", Foodcontroller.viewmenu);
 router.post("/viewone/:id", Foodcontroller.viewone);
 router.post("/editfooddetails/:id", Foodcontroller.editfood);
-router.post("/deletefood", Foodcontroller.deletefood);
+router.post("/deletefood/:id", Foodcontroller.deletefood);
 router.post("/addOrder", OrderController.addOrder);
 router.get("/viewOrder/:userid", OrderController.viewOrder);
 router.post("/cancelOrder", OrderController.cancelOrder);
