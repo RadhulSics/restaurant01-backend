@@ -156,26 +156,9 @@ const deletefood = (req, res) => {
     });
 };
 
-const placeorder = (req, res) => {
-  const { foodname, image, quantity, address, totalAmount } = req.body;
-
-  // Logic to save the order to the database, etc.
-
-  // For demonstration purposes, just sending back a success response
-  res.json({
-    status: 200,
-    message: "Order placed successfully",
-    order: {
-      foodname,
-      image,
-      quantity,
-      address,
-      totalAmount
-    }
-  });
-};
 
 
 
 
-module.exports = { addmenu, viewmenu, viewone, editfood, deletefood,placeorder };
+
+module.exports = { addmenu, viewmenu, viewone, editfood, deletefood };

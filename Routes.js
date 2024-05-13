@@ -4,6 +4,7 @@ const Customercontroller = require("./Customercontroller");
 const Staffcontroller = require("./Staffcontroller");
 const Foodcontroller = require("./Foodcontroller");
 const OrderController = require("./Ordercontroller");
+const staffordercontroller = require("./staffordercontroller")
 
 
 router.post("/addSchema", Customercontroller.addCustomer);
@@ -24,5 +25,9 @@ router.post("/cancelOrder", OrderController.cancelOrder);
 router.post("/updatePaymentStatus", OrderController.updatePaymentStatus);
 router.get("/viewOrderDetails/:userid", OrderController.viewOrderDetails);
 router.get("/viewCustomerOrders", OrderController.viewCustomerOrders);
+router.post('/staffaddorder/:id',staffordercontroller.staffaddorder)
+router.get('/stafforderdetails/:staffid',staffordercontroller.stafforderdetails)
+router.get('/viewstafforders',staffordercontroller.viewallstafforder)
+
 
 module.exports = router;

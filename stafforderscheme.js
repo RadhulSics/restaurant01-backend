@@ -1,9 +1,13 @@
-const mongoose=require("mongoose")
-const staffcartscheme=mongoose.Schema({
+const mongoose = require("mongoose")
+const stafforderscheme = mongoose.Schema({
+    customername:{
+        type:String,
+        required:true,
+    },
     foodid:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:"newfoods",
+        ref:"addmenus",
     },
     staffid:{
         type:mongoose.Schema.Types.ObjectId,
@@ -19,4 +23,4 @@ const staffcartscheme=mongoose.Schema({
     }
 })
 
-module.exports=mongoose.model("newstaffcarts",staffcartscheme)
+module.exports=mongoose.model("newstafforders",stafforderscheme)
