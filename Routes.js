@@ -1,5 +1,5 @@
 const express=require("express")
-const Foodcontroller = require("./Foodcontroller")
+const router = express.Router();
 const Customercontroller = require("./Customercontroller");
 const Staffcontroller = require("./Staffcontroller");
 const Foodcontroller = require("./Foodcontroller");
@@ -13,11 +13,11 @@ router.post("/customerlogin", Customercontroller.customerLogin);
 router.post("/forgotPassword", Customercontroller.forgotPassword);
 router.post("/staffregistration", Staffcontroller.staffregistration);
 router.post("/stafflogin", Staffcontroller.stafflogin);
-router.post("/addmenu", Foodcontroller.addmenu);
+router.post("/addmenu",Foodcontroller.upload, Foodcontroller.addmenu);
 router.post("/viewmenu", Foodcontroller.viewmenu);
 router.post("/viewone/:id", Foodcontroller.viewone);
 router.post("/editfooddetails/:id", Foodcontroller.editfood);
-router.post("/deletefood", Foodcontroller.deletefood);
+router.post("/deletefood/:id", Foodcontroller.deletefood);
 router.post("/addOrder", OrderController.addOrder);
 router.get("/viewOrder/:userid", OrderController.viewOrder);
 router.post("/cancelOrder", OrderController.cancelOrder);
