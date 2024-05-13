@@ -156,4 +156,9 @@ const deletefood = (req, res) => {
     });
 };
 
+
+
+
+
+
 module.exports = { addmenu, viewmenu, viewone, editfood, deletefood };

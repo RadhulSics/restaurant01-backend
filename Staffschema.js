@@ -13,7 +13,7 @@ const staffschema=mongoose.Schema({
         required:true
     },
     gender:{
-        type:String,
+        type:String,    
         required:true
     },
     email:{
@@ -21,6 +21,10 @@ const staffschema=mongoose.Schema({
         required:true
     },
     password:{
+        type:String,
+        required:true
+    },
+    confirmpassword:{
         type:String,
         required:true
     },
