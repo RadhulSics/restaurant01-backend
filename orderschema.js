@@ -26,10 +26,9 @@ const orderSchema = new mongoose.Schema({
   paymentstatus: {
     type: Boolean,
     default: false,
-  },
-
+  }
 });
 
-const OrderModel = mongoose.model('Order', orderSchema);
+const OrderModel = mongoose.model('orders', orderSchema);
 
 module.exports = OrderModel;

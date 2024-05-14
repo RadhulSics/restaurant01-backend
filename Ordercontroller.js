@@ -63,6 +63,7 @@ const updatePaymentStatus = async (req, res) => {
     const orderIds = req.body.orderIds || [];
     const updatedOrders = await OrderModel.updateMany({ _id: { $in: orderIds }, paymentstatus: false }, { paymentstatus: true });
     res.json({
+
       status: 200,
       message: "Payment status updated successfully",
       result: updatedOrders,
@@ -93,10 +94,9 @@ const viewOrderDetails = async (req, res) => {
     });
   }
 };
-
 const viewCustomerOrders = async (req, res) => {
   try {
-    const orders = await OrderModel.find({ paymentstatus: true }).populate("userid").populate("foodid");
+    const orders = await OrderModel.find({ paymentstatus: true }).populate("userId").populate("foodid");
     res.json({
       status: 200,
       message: "Customer orders viewed successfully",
