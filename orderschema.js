@@ -27,10 +27,9 @@ const orderSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  
 
 });
 
-const OrderModel = mongoose.model('Order', orderSchema);
+const OrderModel = mongoose.model('Orders', orderSchema);
 
 module.exports = OrderModel;

@@ -61,7 +61,7 @@ const cancelOrder = async (req, res) => {
 const updatePaymentStatus = async (req, res) => {
   try {
     const orderIds = req.body.orderIds || [];
-    const updatedOrders = await OrderModel.updateMany({ _id: { $in: orderIds }, paymentstatus: false }, { paymentstatus: true });
+    const updatedOrders = await OrderModel.updateOne({ _id: { $in: orderIds }, paymentstatus: false }, { paymentstatus: true });
     res.json({
       status: 200,
       message: "Payment status updated successfully",
