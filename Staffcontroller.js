@@ -7,6 +7,7 @@ const staffregistration = (req, res) => {
     gender: req.body.gender,
     email: req.body.email,
     password: req.body.password,
+    confirmpassword:req.body.password,
     contactno: req.body.contactno,
    
   });
@@ -62,4 +63,36 @@ const stafflogin = (req, res) => {
       });
     });
 };
-module.exports = { staffregistration, stafflogin };
+
+const StaffforgotPassword = (req, res) => {
+  Staffmodel
+    .findOne({ email: req.body.email })
+    .exec()
+    .then((data) => {
+      if (data) {
+        Staffmodel
+          .updateOne({ email: req.body.email }, { password: req.body.password })
+          .exec()
+          .then((data) => {
+            res.json({
+              status: 200,
+              msg: "Password Updated Successfully",
+              result: data,
+            });
+          });
+      } else {
+        res.json({
+          status: 500,
+          msg: "Email Id invalid",
+        });
+      }
+    })
+    .catch((err) => {
+      res.json({
+        status: 500,
+        msg: "Server error",
+        error: err,
+      });
+    });
+};
+module.exports = { staffregistration, stafflogin,StaffforgotPassword };
