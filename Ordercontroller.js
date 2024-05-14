@@ -1,12 +1,19 @@
-
 const OrderModel = require("./Orderschema");
 
 const addOrder = async (req, res) => {
   try {
-    const orders = req.body || [];
-    console.log(orders);
-    const newOrder = new OrderModel(orders);
+    const { userId, quantity, deliveryAddress, foodid, amount } = req.body;
+    
+    const newOrder = new OrderModel({
+      userId,
+      quantity,
+      deliveryAddress,
+      foodid,
+      amount
+    });
+
     const savedOrder = await newOrder.save();
+    
     res.json({
       status: 200,
       message: "Order added successfully",
@@ -21,8 +28,6 @@ const addOrder = async (req, res) => {
     });
   }
 };
-
-
 
 const viewOrder = async (req, res) => {
   try {
@@ -63,7 +68,7 @@ const cancelOrder = async (req, res) => {
 const updatePaymentStatus = async (req, res) => {
   try {
     const orderIds = req.body.orderIds || [];
-    const updatedOrders = await OrderModel.updateOne({ _id: { $in: orderIds }, paymentstatus: false }, { paymentstatus: true });
+    const updatedOrders = await OrderModel.updateMany({ _id: { $in: orderIds }, paymentstatus: false }, { paymentstatus: true });
     res.json({
       status: 200,
       message: "Payment status updated successfully",
@@ -98,7 +103,7 @@ const viewOrderDetails = async (req, res) => {
 
 const viewCustomerOrders = async (req, res) => {
   try {
-    const orders = await OrderModel.find({ paymentstatus: true }).populate("userid").populate("foodid");
+    const orders = await OrderModel.find({ paymentstatus: true }).populate("userId").populate("foodid");
     res.json({
       status: 200,
       message: "Customer orders viewed successfully",
