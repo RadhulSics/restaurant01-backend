@@ -1,4 +1,4 @@
-const express = require("express");
+const express=require("express")
 const router = express.Router();
 const Customercontroller = require("./Customercontroller");
 const Staffcontroller = require("./Staffcontroller");
@@ -8,6 +8,7 @@ const staffordercontroller = require("./staffordercontroller")
 
 
 router.post("/addSchema", Customercontroller.addCustomer);
+
 router.post("/Viewcustomers", Customercontroller.viewCustomer);
 router.post("/customerlogin", Customercontroller.customerLogin);
 router.post("/forgotPassword", Customercontroller.forgotPassword);
