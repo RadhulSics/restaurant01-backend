@@ -22,17 +22,6 @@ const addOrder = async (req, res) => {
   }
 };
 
-// const viewOrderDetails= (req, res) => {
-//   const orderId = parseInt(req.params.id);
-//   const order = orders.find((order) => order.id === orderId);
-
-//   if (!order) {
-//     return res.status(404).json({ error: "Order not found" });
-//   }
-
-//   res.json(order);
-// };
-
 
 
 const viewOrder = async (req, res) => {
