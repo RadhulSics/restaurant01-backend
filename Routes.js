@@ -17,7 +17,7 @@ router.post("/staffregistration", Staffcontroller.staffregistration);
 router.post("/stafflogin", Staffcontroller.stafflogin);
 router.post("/staffforgotpassword", Staffcontroller.StaffforgotPassword);
 
-router.post("/addmenu", Foodcontroller.addmenu);
+router.post("/addmenu",Foodcontroller.upload, Foodcontroller.addmenu);
 router.post("/viewmenu", Foodcontroller.viewmenu);
 router.post("/viewone/:id", Foodcontroller.viewone);
 router.post("/editfooddetails/:id", Foodcontroller.editfood);
