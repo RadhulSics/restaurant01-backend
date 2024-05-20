@@ -33,7 +33,7 @@ router.get("/viewCustomerOrders", OrderController.viewCustomerOrders);
 
 router.post('/staffaddorder/:id',staffordercontroller.staffaddorder)
 router.get('/stafforderdetails/:staffid',staffordercontroller.stafforderdetails)
-router.get('/viewstafforders',staffordercontroller.viewallstafforder)
+router.get('/viewallstafforders',staffordercontroller.viewallstafforder)
 
 
 module.exports = router;

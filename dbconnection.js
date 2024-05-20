@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect('mongodb://127.0.0.1:27017/Customerregistration')
+mongoose.connect('mongodb://127.0.0.1:27017/CustomerRegistration')
 .then(()=>console.log('Connected!...'))
 let db=mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'));
