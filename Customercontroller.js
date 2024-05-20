@@ -37,9 +37,10 @@ const customerLogin = (req, res) => {
   console.log(req.body.email);
   console.log(req.body.password);
   customer
-    .findOne({ email: req.body.email })
+    .findOne({email:req.body.email})
     .exec()
-    .then((data) => {
+    .then(data => {
+      console.log("dta",data);
       if (data) {
         if (data.password == req.body.password) {
           res.json({ status: 200, message: "Login successful", data });
