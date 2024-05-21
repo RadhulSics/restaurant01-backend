@@ -32,7 +32,7 @@ const addOrder = async (req, res) => {
 const viewOrder = async (req, res) => {
   try {
     const userId = req.params.userid;
-    const orders = await OrderModel.find({ userId, paymentstatus: false }).populate('foodid')
+    const orders = await OrderModel.find({ userId, paymentstatus: true }).populate('foodid')
     res.json({
       status: 200,
       message: "Orders viewed successfully",
