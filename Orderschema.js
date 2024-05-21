@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   deliveryAddress: {
@@ -15,21 +15,20 @@ const orderSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:'customers',
+    ref: "customers",
     required: true,
   },
   foodid: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:'addmenus',
+    ref: "addmenus",
     required: true,
   },
   paymentstatus: {
     type: Boolean,
     default: false,
   },
-
 });
 
-const OrderModel = mongoose.model('Orders', orderSchema);
+const OrderModel = mongoose.model("Orders", orderSchema);
 
 module.exports = OrderModel;

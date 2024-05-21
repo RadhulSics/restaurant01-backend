@@ -67,8 +67,8 @@ const cancelOrder = async (req, res) => {
 
 const updatePaymentStatus = async (req, res) => {
   try {
-    const orderIds = req.body.orderIds || [];
-    const updatedOrders = await OrderModel.updateMany({ _id: { $in: orderIds }, paymentstatus: false }, { paymentstatus: true });
+    const orderIds = req.body.orderId
+    const updatedOrders = await OrderModel.findByIdAndUpdate({ _id:orderIds, paymentstatus: false }, { paymentstatus: true });
     res.json({
 
       status: 200,
@@ -76,6 +76,7 @@ const updatePaymentStatus = async (req, res) => {
       result: updatedOrders,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       status: 500,
       message: "Failed to update payment status",
