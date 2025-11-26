@@ -17,7 +17,6 @@ const addmenu = (req, res) => {
     foodname: req.body.foodname,
     image: req.file.filename,
     price: req.body.price,
-    amount: req.body.amount,
     category: req.body.category,
   });
   newMenu
@@ -79,16 +78,19 @@ const viewone = (req,res) => {
 }
 
 const editfood = (req,res) => {
+  const updateData = {
+    foodname: req.body.foodname,
+    price: req.body.price,
+    category: req.body.category,
+  };
+  if (req.file) {
+    updateData.image = req.file.filename;
+  }
   menu.findByIdAndUpdate(
     {
       _id: req.params.id,
     },
-    {
-      foodname: req.body.foodname,
-      image: req.file,
-      price: req.body.price,
-      category: req.body.category,
-    }
+    updateData
   )
   .exec()
   .then((data) => {

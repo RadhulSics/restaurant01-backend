@@ -9,6 +9,7 @@ const addCustomer = (req, res) => {
     email: req.body.email,
     gender: req.body.gender,
   });
+  
   newCustomer
     .save()
     .then((data) => {

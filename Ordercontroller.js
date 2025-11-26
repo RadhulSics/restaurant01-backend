@@ -1,19 +1,31 @@
 const OrderModel = require("./Orderschema");
+const CustomerModel = require("./Customerschema");
 
 const addOrder = async (req, res) => {
   try {
     const { userId, quantity, deliveryAddress, foodid, amount } = req.body;
-    
+
+    // Fetch customer details to get the name
+    const customer = await CustomerModel.findById(userId);
+    if (!customer) {
+      return res.status(404).json({
+        status: 404,
+        message: "Customer not found",
+      });
+    }
+    const customername = `${customer.firstname} ${customer.lastname}`;
+
     const newOrder = new OrderModel({
       userId,
       quantity,
       deliveryAddress,
       foodid,
-      amount
+      amount,
+      customername
     });
 
     const savedOrder = await newOrder.save();
-    
+
     res.json({
       status: 200,
       message: "Order added successfully",
