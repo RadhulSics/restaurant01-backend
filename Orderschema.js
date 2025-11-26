@@ -13,6 +13,10 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  customername: {
+    type: String,
+    required: true,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "customers",

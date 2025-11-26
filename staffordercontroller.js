@@ -1,13 +1,15 @@
 const Stafforder = require("./stafforderscheme");
 
 const staffaddorder = (req, res) => {
-    const { foodid, userId, amount, quantity, customername } = req.body;
-    
+    const { foodid, userId, amount, quantity, customername, deliveryAddress } = req.body;
+
     const newStafforder = new Stafforder({
         foodid,
         staffid: userId,
         count: quantity,
         customername,
+        deliveryAddress,
+        amount
     });
 
     newStafforder.save()
